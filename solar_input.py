@@ -54,7 +54,7 @@ def parse_star_parameters(line, star):
 
     **star** — объект звезды.
     """
-
+    star.type = line.split()[0].lower()
     star.R = float(line.split()[1].lower())
     star.color = line.split()[2].lower()
     star.m = float(line.split()[3].lower())
@@ -82,7 +82,7 @@ def parse_planet_parameters(line, planet):
 
     **planet** — объект планеты.
     """
-
+    planet.type = line.split()[0].lower()
     planet.R = float(line.split()[1].lower())
     planet.color = line.split()[2].lower()
     planet.m = float(line.split()[3].lower())
@@ -107,13 +107,22 @@ def write_space_objects_data_to_file(output_filename, space_objects):
 
     **space_objects** — список объектов планет и звёзд
     """
-    with open(output_filename, 'w') as out_file:
-        for obj in space_objects:
-            print(out_file, "%s %d %s %f" % ('1', 2, '3', 4.5))
-            # FIXME!
+    output = open(output_filename, 'w')
+    '''for obj in space_objects:
+        print(out_file, "%s %d %s %f" % ('1', 2, '3', 4.5))
+        # FIXME!'''
+    print('Данные о космических объектах', file=output)
+    for obj in space_objects:
+        print(str(obj.R))
+        print(''.join(str(obj.type)), ''.join(str(obj.R)),''.join(str(obj.color)),''.join(str(obj.m)),
+              ''.join(str(obj.x)),''.join(str(obj.y)),''.join(str(obj.Vx)),''.join(str(obj.Vy)), file=output)
+    output.close()
 
 
 if __name__ == "__main__":
     objects = read_space_objects_data_from_file('solar_system.txt')
-    for obj in objects:
-        print(obj.x, type(obj.x))
+
+    in_filename = "solar_system.txt"
+    space_objects = read_space_objects_data_from_file(in_filename)
+    write_space_objects_data_to_file("written.txt", space_objects)
+
