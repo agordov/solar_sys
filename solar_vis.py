@@ -2,6 +2,7 @@
 # license: GPLv3
 
 import pygame as pg
+import pygame.draw
 
 """Модуль визуализации.
 Нигде, кроме этого модуля, не используются экранные координаты объектов.
@@ -83,6 +84,11 @@ class Drawer:
 class DrawableObject:
     def __init__(self, obj):
         self.obj = obj
+        self.R = obj.R
+        self.color = obj.color
+        self.x = obj.x
+        self.y = obj.y
 
     def draw(self, surface):
-            pass  # FIXME
+            pg.draw.circle(surface, self.color, (self.x, self.y),
+            self.R)
