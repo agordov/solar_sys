@@ -21,7 +21,7 @@ model_time = 0
 """Физическое время от начала расчёта.
 Тип: float"""
 
-time_scale = 1000.0
+time_scale = 100.0
 """Шаг по времени при моделировании.
 Тип: float"""
 
@@ -97,7 +97,7 @@ def slider_reaction(event):
 
 def init_ui(screen):
     global browser
-    slider = thorpy.SliderX(100, (-10, 10), "Simulation speed")
+    slider = thorpy.SliderX(100, (-20, 20), "Simulation speed")
     slider.user_func = slider_reaction
     button_stop = thorpy.make_button("Quit", func=stop_execution)
     button_pause = thorpy.make_button("Pause", func=pause_execution)
