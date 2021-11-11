@@ -74,7 +74,7 @@ class Drawer:
     def update(self, figures, ui):
         self.screen.fill('white')
         for figure in figures:
-            pg.draw.circle(self.screen, figure.color, (scale_x(figure.x), scale_y(figure.y)), figure.R)
+            figure.draw(self.screen)
         
         ui.blit()
         ui.update()
@@ -89,5 +89,6 @@ class DrawableObject:
         self.x = obj.x
         self.y = obj.y
 
-    def draw(self, surface, obj):
-        pg.draw.circle(surface, self.color, (self.x, self.y), self.R)
+    def draw(self, surface):
+        pg.draw.circle(surface, self.color, (scale_x(self.x), scale_y(self.y)), self.R)
+        pg.draw.circle(surface, 'black', (scale_x(self.x), scale_y(self.y)), self.R, 2)
