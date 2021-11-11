@@ -161,12 +161,14 @@ def main():
     perform_execution = True
 
     while alive:
+        write_space_objects_data_to_file("written.txt", space_objects)
         handle_events(pg.event.get(), menu)
         cur_time = time.perf_counter()
         if perform_execution:
             execution((cur_time - last_time) * time_scale)
             text = "%d seconds passed" % (int(model_time))
             timer.set_text(text)
+            write_space_objects_data_to_file("written.txt", space_objects)
 
         last_time = cur_time
         drawer.update(space_objects, box)
