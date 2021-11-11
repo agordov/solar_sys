@@ -40,6 +40,8 @@ def execution(delta):
     recalculate_space_objects_positions([dr for dr in space_objects], delta)
     model_time += delta
 
+def write_to_written():
+    pass
 
 def start_execution():
     """Обработчик события нажатия на кнопку Start.
@@ -104,6 +106,7 @@ def init_ui(screen):
     button_play = thorpy.make_button("Play", func=start_execution)
     timer = thorpy.OneLineText("Seconds passed")
 
+    button_write = thorpy.make_button("Safe data",  write_space_objects_data_to_file("written.txt", space_objects))
     button_load = thorpy.make_button(text="Load a file", func=open_file)
 
     box = thorpy.Box(elements=[
@@ -112,6 +115,7 @@ def init_ui(screen):
         button_stop, 
         button_play, 
         button_load,
+        button_write,
         timer])
     reaction1 = thorpy.Reaction(reacts_to=thorpy.constants.THORPY_EVENT,
                                 reac_func=slider_reaction,
