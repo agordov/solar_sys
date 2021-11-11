@@ -53,7 +53,13 @@ def parse_star_parameters(line, star):
 
     **star** — объект звезды.
     """
-    pass  # FIXME: допишите парсер
+    star.R = float(line.split()[1].lower())
+    star.color = line.split()[2].lower()
+    star.m = float(line.split()[3].lower())
+    star.x = float(line.split()[4].lower())
+    star.y = float(line.split()[5].lower())
+    star.Vx = float(line.split()[6].lower())
+    star.Vy = float(line.split()[7].lower())
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
@@ -73,7 +79,13 @@ def parse_planet_parameters(line, planet):
 
     **planet** — объект планеты.
     """
-    pass  # FIXME: допишите парсер
+    planet.R = float(line.split()[1].lower())
+    planet.color = line.split()[2].lower()
+    planet.m = float(line.split()[3].lower())
+    planet.x = float(line.split()[4].lower())
+    planet.y = float(line.split()[5].lower())
+    planet.Vx = float(line.split()[6].lower())
+    planet.Vy = float(line.split()[7].lower())
 
 def write_space_objects_data_to_file(output_filename, space_objects):
     """Сохраняет данные о космических объектах в файл.
@@ -97,4 +109,6 @@ def write_space_objects_data_to_file(output_filename, space_objects):
 
 
 if __name__ == "__main__":
-    print("This module is not for direct call!")
+    objects = read_space_objects_data_from_file('solar_system.txt')
+    for obj in objects:
+        print(obj.x, type(obj.x))
