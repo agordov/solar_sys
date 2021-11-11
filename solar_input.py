@@ -122,7 +122,4 @@ def write_space_objects_data_to_file(output_filename, space_objects):
 if __name__ == "__main__":
     objects = read_space_objects_data_from_file('solar_system.txt')
 
-    in_filename = "solar_system.txt"
-    space_objects = read_space_objects_data_from_file(in_filename)
-    write_space_objects_data_to_file("written.txt", space_objects)
 
