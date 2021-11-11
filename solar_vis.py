@@ -90,10 +90,4 @@ class DrawableObject:
         self.y = obj.y
 
     def draw(self, surface):
-<<<<<<< HEAD
-        pg.draw.circle(surface, self.color, (self.x, self.y),
-                           self.R)  # FIXME
-=======
-            pg.draw.circle(surface, self.color, (self.x, self.y),
-            self.R)
->>>>>>> f652222eef6f66eaf934c7ad000d85d38979e288
+        pg.draw.circle(surface, self.color, (self.x, self.y), self.R)  
