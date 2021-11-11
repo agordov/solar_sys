@@ -111,7 +111,7 @@ def write_space_objects_data_to_file(output_filename, space_objects):
     '''for obj in space_objects:
         print(out_file, "%s %d %s %f" % ('1', 2, '3', 4.5))
         # FIXME!'''
-    print('Данные о космических объектах', file=output)
+    print('#Данные о космических объектах', file=output)
     for obj in space_objects:
         print(str(obj.R))
         print(''.join(str(obj.type)), ''.join(str(obj.R)),''.join(str(obj.color)),''.join(str(obj.m)),

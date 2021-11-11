@@ -88,6 +88,8 @@ class DrawableObject:
         self.color = obj.color
         self.x = obj.x
         self.y = obj.y
+
+        self.type = obj.type
         self.m = obj.m
         self.Vx = obj.Vx
         self.Vy = obj.Vy
