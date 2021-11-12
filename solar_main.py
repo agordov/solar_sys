@@ -28,6 +28,10 @@ time_scale = 1000.0
 space_objects = []
 """Список космических объектов."""
 
+file_names = ['solar_system.txt', 'double_star.txt', 'one_satellite.txt']
+curr_file_name = -1
+"""Список файлов с исходными данными и текущее имя"""
+
 def execution(delta):
     """Функция исполнения -- выполняется циклически, вызывая обработку всех небесных тел,
     а также обновляя их положение на экране.
@@ -49,6 +53,7 @@ def start_execution():
 
 def pause_execution():
     global perform_execution
+    write_space_objects_data_to_file("stats.txt", space_objects) #запись текущих данных в файл
     perform_execution = False
 
 def stop_execution():
@@ -66,12 +71,47 @@ def open_file():
     global space_objects
     global browser
     global model_time
+    global curr_file_name
 
     model_time = 0.0
-    in_filename = "solar_system.txt"
+    curr_file_name += 1
+    if curr_file_name > 2:
+        curr_file_name = 0
+    in_filename = file_names[curr_file_name]
     space_objects = read_space_objects_data_from_file(in_filename)
     max_distance = max([max(abs(obj.obj.x), abs(obj.obj.y)) for obj in space_objects])
     calculate_scale_factor(max_distance)
+    #сброс файлов со статистикой
+    with open('v(t).txt', 'w') as out_file:
+        out_file.write('Зависимость модуля скоростей планет (м/с) от времени (с)\n') 
+        s = 't'
+        i = 0
+        for obj in space_objects:
+            o=obj.obj
+            if o.type == 'planet':
+                s += ' v' + str(i)
+                i += 1
+        out_file.write(s + '\n')
+    with open('r(t).txt', 'w') as out_file:
+        out_file.write('Зависимость расстояний планет до звезды (м) от времени (с)\n')
+        s = 't'
+        i = 0
+        for obj in space_objects:
+            o=obj.obj
+            if o.type == 'planet':
+                s += ' r' + str(i)
+                i += 1
+        out_file.write(s + '\n')    
+    with open('v(r).txt', 'w') as out_file:
+        out_file.write('Зависимость модуля скорости планет (м/с) от расстояния до звезды (м)\n')
+        i = 0
+        s=''
+        for obj in space_objects:
+            o=obj.obj
+            if o.type == 'planet':
+                s += ' r' + str(i) + ' v'+str(i)
+                i += 1
+        out_file.write(s[1:] + '\n')        
 
 def handle_events(events, menu):
     global alive
@@ -141,7 +181,7 @@ def main():
     pg.init()
     
     width = 1000
-    height = 900
+    height = 700
     screen = pg.display.set_mode((width, height))
     last_time = time.perf_counter()
     drawer = Drawer(screen)
@@ -158,6 +198,10 @@ def main():
 
         last_time = cur_time
         drawer.update(space_objects, box)
+        #запись графиков в файл
+        write_space_velocity_to_file('v(t).txt', space_objects, model_time)
+        write_space_distance_to_file('r(t).txt', space_objects, model_time)
+        write_space_velocity_of_distance_to_file('v(r).txt', space_objects)
         time.sleep(1.0 / 60)
 
     print('Modelling finished!')
